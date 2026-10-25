@@ -1,0 +1,21 @@
+export type Language = "ru" | "en";
+export type LocalText = Record<Language, string>;
+export type Group = { id: string; title: LocalText };
+export type Lesson = {
+  id: string;
+  group: string;
+  mode: "learn" | "practice";
+  title: LocalText;
+  command: string;
+  explanation: LocalText;
+  syntax: LocalText;
+  example: string;
+  goal: LocalText;
+  hint: LocalText;
+  success: LocalText;
+  start_dir: string;
+  lab_model: boolean;
+};
+export type Course = { groups: Group[]; lessons: Lesson[] };
+export type ConnectionStatus = "connecting" | "ready" | "closed" | "error";
+export type CheckResult = { passed: boolean; message: LocalText };
