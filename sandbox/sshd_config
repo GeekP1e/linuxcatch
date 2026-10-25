@@ -1,0 +1,15 @@
+ListenAddress 127.0.0.1
+Port 2222
+HostKey /home/student/.ssh/host_ed25519
+PidFile /tmp/linuxcatch-sshd.pid
+AuthorizedKeysFile .ssh/authorized_keys
+AllowUsers student
+PubkeyAuthentication yes
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+UsePAM no
+StrictModes yes
+AllowTcpForwarding no
+X11Forwarding no
+PermitTunnel no
+PrintMotd no

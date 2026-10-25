@@ -1,0 +1,5 @@
+if [ -f /tmp/linuxcatch.bashrc ]; then
+  . /tmp/linuxcatch.bashrc
+fi
+PS1='\[\e[38;5;114m\]${LINUXCATCH_LAB_USER:-student}@linuxcatch\[\e[0m\]:\[\e[38;5;110m\]\w\[\e[0m\]$ '
+PROMPT_COMMAND='builtin history -a; builtin pwd > /tmp/linuxcatch.cwd'
