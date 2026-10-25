@@ -343,9 +343,11 @@ export default function App() {
               </div>
               <h1 id="lesson-title">{lesson.title[language]}</h1>
               <p className="goal">{lesson.goal[language]}</p>
-              <div className="lesson-command">
-                <code>{lesson.command}</code>
-              </div>
+              {mode === "learn" && (
+                <div className="lesson-command">
+                  <code>{lesson.command}</code>
+                </div>
+              )}
               <p className="explanation">{lesson.explanation[language]}</p>
               {lesson.lab_model && <p className="hint-text">{t.modelNotice}</p>}
               {mode === "learn" && (
@@ -364,17 +366,19 @@ export default function App() {
                 <span className="workspace-location">
                   {t.start} <code>{lesson.start_dir}</code>
                 </span>
-                <button
-                  className="hud-action"
-                  aria-expanded={hintOpen}
-                  aria-controls="lesson-hint"
-                  onClick={() => setHintOpen((value) => !value)}
-                >
-                  <Lightbulb size={14} />
-                  {hintOpen ? t.hideHint : t.hint}
-                </button>
+                {mode === "learn" && (
+                  <button
+                    className="hud-action"
+                    aria-expanded={hintOpen}
+                    aria-controls="lesson-hint"
+                    onClick={() => setHintOpen((value) => !value)}
+                  >
+                    <Lightbulb size={14} />
+                    {hintOpen ? t.hideHint : t.hint}
+                  </button>
+                )}
               </div>
-              {hintOpen && (
+              {mode === "learn" && hintOpen && (
                 <p id="lesson-hint" className="hint-text">
                   {lesson.hint[language]}
                 </p>
@@ -555,7 +559,9 @@ export default function App() {
                                 </span>
                                 <span>
                                   <strong>{item.title[language]}</strong>
-                                  <code>{item.command}</code>
+                                  {sectionMode === "learn" && (
+                                    <code>{item.command}</code>
+                                  )}
                                 </span>
                               </button>
                             ))}
