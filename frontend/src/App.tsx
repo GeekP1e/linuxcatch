@@ -25,6 +25,44 @@ import { message, readLanguage, ui } from "./i18n";
 
 const PROGRESS_KEY = "linuxcatch.progress.v1";
 const CURRENT_LESSON_KEY = "linuxcatch.currentLesson.v1";
+const POSITION_KEY = "linuxcatch.position.v1";
+
+type CoursePosition = { lessonId: string; scrollY: number; mapOpen: boolean };
+
+function readPosition(): CoursePosition | null {
+  try {
+    const value: unknown = JSON.parse(localStorage.getItem(POSITION_KEY) ?? "null");
+    if (
+      value !== null &&
+      typeof value === "object" &&
+      "lessonId" in value &&
+      typeof value.lessonId === "string" &&
+      "scrollY" in value &&
+      typeof value.scrollY === "number" &&
+      Number.isFinite(value.scrollY) &&
+      value.scrollY >= 0 &&
+      "mapOpen" in value &&
+      typeof value.mapOpen === "boolean"
+    ) {
+      return {
+        lessonId: value.lessonId,
+        scrollY: value.scrollY,
+        mapOpen: value.mapOpen,
+      };
+    }
+  } catch {
+    /* Ignore unavailable storage or an invalid saved position. */
+  }
+  return null;
+}
+
+function saveCurrentLesson(id: string) {
+  try {
+    localStorage.setItem(CURRENT_LESSON_KEY, id);
+  } catch {
+    /* Navigation still works without browser storage. */
+  }
+}
 
 function readCurrentLesson(): string {
   try {
@@ -64,7 +102,11 @@ export default function App() {
   const [feedback, setFeedback] = useState<CheckResult | null>(null);
   const [error, setError] = useState<LocalText | null>(null);
   const [hintOpen, setHintOpen] = useState(false);
-  const [mapOpen, setMapOpen] = useState(false);
+  const [savedPosition] = useState(readPosition);
+  const positionRestored = useRef(false);
+  const [mapOpen, setMapOpen] = useState(
+    () => savedPosition?.lessonId === selectedId && savedPosition.mapOpen,
+  );
   const [checking, setChecking] = useState(false);
   const terminal = useRef<TerminalHandle>(null);
   const checkTimer = useRef<number | undefined>(undefined);
@@ -166,12 +208,44 @@ export default function App() {
 
   useEffect(() => {
     if (!lessons.some((item) => item.id === selectedId)) return;
-    try {
-      localStorage.setItem(CURRENT_LESSON_KEY, selectedId);
-    } catch {
-      /* Navigation still works without browser storage. */
-    }
+    saveCurrentLesson(selectedId);
   }, [selectedId, lessons]);
+
+  useEffect(() => {
+    if (loading || !lesson) return;
+    const frame = window.requestAnimationFrame(() => {
+      if (!positionRestored.current) {
+        if (savedPosition?.lessonId === selectedId)
+          window.scrollTo(0, savedPosition.scrollY);
+        positionRestored.current = true;
+        savePosition();
+      }
+    });
+    const savePosition = () => {
+      if (!positionRestored.current) return;
+      try {
+        localStorage.setItem(
+          POSITION_KEY,
+          JSON.stringify({ lessonId: selectedId, scrollY: window.scrollY, mapOpen }),
+        );
+      } catch {
+        /* Training still works without browser storage. */
+      }
+    };
+    const saveWhenHidden = () => {
+      if (document.visibilityState === "hidden") savePosition();
+    };
+    window.addEventListener("scroll", savePosition, { passive: true });
+    window.addEventListener("pagehide", savePosition);
+    document.addEventListener("visibilitychange", saveWhenHidden);
+    savePosition();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", savePosition);
+      window.removeEventListener("pagehide", savePosition);
+      document.removeEventListener("visibilitychange", saveWhenHidden);
+    };
+  }, [loading, lesson, selectedId, mapOpen, savedPosition]);
 
   useEffect(() => () => window.clearTimeout(checkTimer.current), []);
 
@@ -203,6 +277,7 @@ export default function App() {
 
   function select(id: string) {
     window.clearTimeout(checkTimer.current);
+    saveCurrentLesson(id);
     setSelectedId(id);
     setFeedback(null);
     setError(null);
