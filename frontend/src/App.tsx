@@ -613,7 +613,7 @@ export default function App() {
                             ? t.groupLearn
                             : t.groupPractice}
                         </h2>
-                        <div className="curriculum-nodes">
+                        <div className="course-task-grid">
                           {items
                             .filter((item) => item.mode === sectionMode)
                             .map((item, itemIndex) => (

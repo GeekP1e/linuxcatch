@@ -1,0 +1,62 @@
+LinuxCatch Non-Sale License 1.0
+
+Copyright (c) 2026 GeekP1e
+
+1. Scope
+
+This license applies to the original LinuxCatch source code, course content,
+documentation, and other project materials supplied with this license
+(the "Software"), to the extent the copyright holder owns those materials.
+
+2. Permission
+
+Subject to the conditions below, you may use, study, copy, modify, and
+redistribute the Software and works based on it, in source or compiled form,
+without charge. Personal, educational, and internal business use are allowed.
+
+3. No sale or paid access
+
+Without separate written permission from the copyright holder, you may not:
+
+- sell, rent, lease, or license copies of the Software or works based on it
+  for a fee or other consideration;
+- charge for access to or use of the Software or works based on it, including
+  hosted versions, subscriptions, and paid training-platform access;
+- include the Software or works based on it in a paid bundle or offering
+  that requires payment to obtain or use the Software.
+
+These restrictions also apply to modified, rebranded, or partially reused
+versions containing copyrightable portions of the Software. Voluntary
+donations are allowed only if no payment is required to obtain, access, or
+use the Software or any of its features.
+
+4. Redistribution
+
+Redistribution must be free of charge. Include this license and all applicable
+copyright and third-party notices with every copy or substantial portion of
+the Software. Identify your modifications. Distribute the original Software
+and your modifications to it under this same license; do not grant permissions
+that conflict with its restrictions. Recipients receive permission to use the
+Software directly from the copyright holder under these terms.
+
+5. Third-party materials and prior permissions
+
+Third-party dependencies, tools, container base images, and separately licensed
+materials remain governed by their own licenses. This license does not replace
+their terms or restrict permissions their copyright holders independently grant.
+It does not revoke permissions already granted under a different license for
+earlier versions or separately obtained materials.
+
+6. Reserved rights and termination
+
+No trademark rights are granted. All rights not expressly granted are reserved.
+Permission under this license terminates automatically if you violate its terms.
+Different terms require separate written permission from the copyright holder.
+
+7. Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. TO THE MAXIMUM EXTENT
+PERMITTED BY APPLICABLE LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY
+CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE.

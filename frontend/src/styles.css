@@ -1,6 +1,4 @@
-/* Adapted from VimCatch. Copyright (c) 2025 RNZ; (c) 2026 GeekP1e.
- * MIT license: public/licenses/VimCatch.txt.
- */
+/* Copyright (c) 2026 GeekP1e. See LICENSE in the project root. */
 :root {
   font-family: "Fira Code", Consolas, Monaco, "Liberation Mono", monospace;
   color: #bbf7d0;
@@ -490,15 +488,14 @@ kbd {
   font-weight: 600;
   letter-spacing: 0.05em;
 }
-.curriculum-nodes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.8rem;
+.course-task-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 8px;
+  padding-block-start: 12px;
 }
 .curriculum-node {
   display: flex;
-  flex: 1 1 220px;
   align-items: center;
   gap: 10px;
   min-width: 0;

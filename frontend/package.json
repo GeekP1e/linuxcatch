@@ -1,5 +1,6 @@
 {
   "name": "linuxcatch-frontend",
+  "license": "SEE LICENSE IN public/LICENSE",
   "private": true,
   "version": "0.1.0",
   "type": "module",
